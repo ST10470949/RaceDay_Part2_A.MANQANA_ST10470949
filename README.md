@@ -96,3 +96,10 @@ RaceDay-API/
 Key constraints enforced at the EF Core level: unique email per user, unique enrolment per participant/category pair, restrict-delete on foreign keys to avoid cascade cycles.
 
 ---
+
+##  Getting Started
+
+### Prerequisites
+
+- Visual Studio 2022 (ASP.NET and web development workload) or the .NET 8 SDK
+- SQL Server / SQL Server Express / LocalDB
