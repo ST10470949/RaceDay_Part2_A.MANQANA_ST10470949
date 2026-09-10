@@ -223,3 +223,13 @@ Tests run against the EF Core InMemory provider, so CI doesn't need an actual SQ
 - **Enrolments** — Participant can enrol and the record links correctly, Organiser is rejected, duplicate enrolment in the same category is rejected
 
 ---
+
+##  CI/CD
+
+`.github/workflows/dotnet-ci.yml` runs on every push and pull request to `main`: restores dependencies, builds in Release mode, then runs the full test suite.
+
+**Green build:**
+
+![CI green build](Documentation/ci-green-build.png)
+
+---
