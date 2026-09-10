@@ -103,3 +103,13 @@ Key constraints enforced at the EF Core level: unique email per user, unique enr
 
 - Visual Studio 2022 (ASP.NET and web development workload) or the .NET 8 SDK
 - SQL Server / SQL Server Express / LocalDB
+
+### Setup
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/YOUR-USERNAME/YOUR-REPO.git
+   cd YOUR-REPO
+   ```
+
+   
