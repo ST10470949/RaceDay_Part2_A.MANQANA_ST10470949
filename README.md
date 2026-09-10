@@ -233,3 +233,11 @@ Tests run against the EF Core InMemory provider, so CI doesn't need an actual SQ
 ![CI green build](Documentation/ci-green-build.png)
 
 ---
+
+##  Video Walkthrough
+
+ **YouTube (unlisted):** _[add your link here]_
+
+The video covers: project structure, the database, running the API, Swagger, register/login, role restrictions, Events/Categories/Enrolments/Results, unit tests, and the GitHub Actions green build.
+
+---
