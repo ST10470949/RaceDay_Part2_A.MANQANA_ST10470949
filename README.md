@@ -79,3 +79,20 @@ RaceDay-API/
 ├── Documentation/           CI green build screenshot
 └── README.md
 ```
+
+---
+
+##  Database Schema
+
+| Entity | Purpose |
+|---|---|
+| `Users` | Organisers and Participants, one table, discriminated by `Role` |
+| `Events` | Owned by an Organiser; date, location, description |
+| `Categories` | e.g. "10km Fun Run" under a specific Event; entry fee, capacity |
+| `Enrolments` | Links a Participant to a Category |
+| `Results` | Finish time / position, captured by the Organiser per Enrolment |
+| `RouteWeatherInfo` | Race-day weather and route info per Event |
+
+Key constraints enforced at the EF Core level: unique email per user, unique enrolment per participant/category pair, restrict-delete on foreign keys to avoid cascade cycles.
+
+---
