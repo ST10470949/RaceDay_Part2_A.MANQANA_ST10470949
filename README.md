@@ -60,3 +60,22 @@ The database schema matches the Part 1 ERD/SQL script exactly.
 | Password hashing | `Microsoft.AspNetCore.Identity.PasswordHasher<User>` |
 | API docs | Swagger / Swashbuckle |
 | Testing | xUnit + EF Core InMemory provider |
+| CI/CD | GitHub Actions |
+
+##  Project Structure
+
+```
+RaceDay-API/
+├── RaceDay.API/
+│   ├── Controllers/        AuthController, UsersController, EventsController,
+│   │                        CategoriesController, EnrolmentsController, ResultsController
+│   ├── Models/              User, Event, Category, Enrolment, Result, RouteWeatherInfo
+│   ├── DTOs/                Request/response shapes, grouped by feature
+│   ├── Data/                RaceDayContext (EF Core DbContext)
+│   ├── Services/            IPasswordHashService / PasswordHashService
+│   ├── Program.cs
+│   └── appsettings.json
+├── RaceDay.Tests/           xUnit test project (EF Core InMemory, no SQL Server needed)
+├── .github/workflows/       dotnet-ci.yml — build + test on every push
+├── Documentation/           CI green build screenshot
+└── README.md
