@@ -241,3 +241,11 @@ Tests run against the EF Core InMemory provider, so CI doesn't need an actual SQ
 The video covers: project structure, the database, running the API, Swagger, register/login, role restrictions, Events/Categories/Enrolments/Results, unit tests, and the GitHub Actions green build.
 
 ---
+
+##  Roadmap
+
+- [x] Part 1 — Planning (ERD, endpoint plan, SQL script)
+- [x] Part 2 — RESTful API (this repository)
+- [ ] Part 3 — MVC front-end consuming this API
+
+---
