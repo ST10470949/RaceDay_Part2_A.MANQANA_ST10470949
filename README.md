@@ -166,3 +166,19 @@ Full interactive documentation is available via Swagger UI at `/swagger` once th
 |---|---|---|---|
 | GET | `/me` | Logged in | Get own profile |
 | PUT | `/me` | Logged in | Update own profile |
+
+### Events — `/api/events`
+
+| Method | Route | Auth | Description |
+|---|---|---|---|
+| GET | `/` | — | List all events (filter by location/date) |
+| GET | `/{id}` | — | Get a single event with categories |
+| POST | `/` | Organiser | Create an event |
+| PUT | `/{id}` | Organiser (owner) | Update an event |
+| DELETE | `/{id}` | Organiser (owner) | Delete an event |
+| GET | `/{id}/categories` | — | List categories for an event |
+| POST | `/{id}/categories` | Organiser (owner) | Add a category to an event |
+| GET | `/{id}/enrolments` | Organiser (owner) | List enrolments for an event |
+| GET | `/{id}/results` | Organiser (owner) | List results for an event |
+| GET | `/{id}/weather` | — | Get weather/route info |
+| POST | `/{id}/weather` | Organiser (owner) | Add/update weather/route info |
