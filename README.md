@@ -49,3 +49,14 @@ The database schema matches the Part 1 ERD/SQL script exactly.
 -  Swagger UI with XML-comment-driven endpoint descriptions
 -  xUnit test suite running against EF Core InMemory (no SQL Server needed for CI)
 -  GitHub Actions pipeline: restore → build → test on every push
+
+##  Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Framework | ASP.NET Core 8 Web API (controller-based) |
+| ORM | Entity Framework Core 8, Code-First, SQL Server provider |
+| Auth | `Microsoft.AspNetCore.Session` (server-side session, no JWT) |
+| Password hashing | `Microsoft.AspNetCore.Identity.PasswordHasher<User>` |
+| API docs | Swagger / Swashbuckle |
+| Testing | xUnit + EF Core InMemory provider |
