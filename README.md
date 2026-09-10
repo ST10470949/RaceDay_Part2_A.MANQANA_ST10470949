@@ -130,8 +130,8 @@ instance to run them.
 `.github/workflows/dotnet-ci.yml` runs on every push: restores dependencies, builds in
 Release mode, then runs the full test suite.
 
-**Green build screenshot:** `Documentation/ci-green-build.png` — insert after your first
-successful push.
+**Green build screenshot:** <img width="1917" height="1018" alt="ci-green-build" src="https://github.com/user-attachments/assets/9f10a596-5fe5-413b-bd17-4cedd57199f5" />
+
 
 ## Video Walkthrough
 
