@@ -7,3 +7,13 @@ A RESTful ASP.NET Core Web API backed by SQL Server via EF Core, with session-ba
 > **Module:** PROG6212 — Programming 2B
 > **Student:** A. Manqana (ST10470949)
 > **Part:** 2 of 3 — RESTful API Development
+
+##  Table of Contents
+
+- [Overview](#-overview)
+- [Features](#-features)
+- [Tech Stack](#-tech-stack)
+- [Project Structure](#-project-structure)
+- [Database Schema](#-database-schema)
+- [Getting Started](#-getting-started)
+- [Roles & Access Control](#-roles--access-control)
