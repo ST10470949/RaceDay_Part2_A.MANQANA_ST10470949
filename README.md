@@ -33,3 +33,10 @@ RaceDay is a Portfolio of Evidence project split into three parts:
 | 1 | Planning — ERD, endpoint plan, SQL script | ✅ Complete |
 | **2** | **RESTful API — this repository** | ✅ Complete |
 | 3 | MVC front-end consuming this API | 🔜 Upcoming |
+
+There are two roles on the platform:
+
+- **Organiser** — creates, edits and deletes events; manages categories per event; views who has enrolled; captures results.
+- **Participant** — browses events and categories, enrols into a category, views their own enrolments and results, and updates their own profile.
+
+The database schema matches the Part 1 ERD/SQL script exactly.
