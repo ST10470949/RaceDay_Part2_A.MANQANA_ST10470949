@@ -23,3 +23,13 @@ A RESTful ASP.NET Core Web API backed by SQL Server via EF Core, with session-ba
 - [Video Walkthrough](#-video-walkthrough)
 - [Roadmap](#-roadmap)
 - [Author](#-author)
+
+##  Overview
+
+RaceDay is a Portfolio of Evidence project split into three parts:
+
+| Part | Deliverable | Status |
+|---|---|---|
+| 1 | Planning — ERD, endpoint plan, SQL script | ✅ Complete |
+| **2** | **RESTful API — this repository** | ✅ Complete |
+| 3 | MVC front-end consuming this API | 🔜 Upcoming |
