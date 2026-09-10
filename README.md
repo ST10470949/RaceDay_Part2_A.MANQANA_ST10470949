@@ -135,3 +135,15 @@ Key constraints enforced at the EF Core level: unique email per user, unique enr
 6. **Register and log in through Swagger** — `POST /api/auth/register`, then `POST /api/auth/login`. Swagger keeps the session cookie between calls, so once you're logged in you can try the role-restricted endpoints straight away.
 
 ---
+##  Roles & Access Control
+
+| Area | Organiser | Participant |
+|---|---|---|
+| Profile | View/update own | View/update own |
+| Events | Create, update, delete own; view all | View all |
+| Categories | Create/update/delete for own events; view all | View all |
+| Enrolments | View enrolments for own events | Enrol, view own, cancel own |
+| Results | Capture for own events | View own only |
+| Weather/Route info | Add/update for own events | View |
+
+Every write endpoint checks the session first (`401` if nobody's logged in), then the role (`403` if it's the wrong role), and — for Events/Categories/Enrolments/Results — that the logged-in Organiser actually owns the parent event before allowing the change.
