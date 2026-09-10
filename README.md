@@ -1,141 +1,98 @@
-# RaceDay API
+# RaceDay — Part 2: RESTful API
 
-**Event management platform for South African road running, walking and cycling events.**
+**Module:** PROG6212 — Programming 2B
+**Student:** A. Manqana (ST10470949)
+**Part:** 2 of 3 — RESTful API Development (100 Marks)
 
-A RESTful ASP.NET Core Web API backed by SQL Server via EF Core, with session-based authentication, role-based access control, Swagger documentation, unit tests and a GitHub Actions CI/CD pipeline.
+This is Part 2 of the RaceDay Portfolio of Evidence. Part 1 was the planning stage (ERD,
+API endpoint plan, SQL script). This part turns that plan into a working ASP.NET Core Web
+API, backed by SQL Server through EF Core, with session-based authentication, role
+enforcement, Swagger documentation, unit tests and a GitHub Actions CI/CD pipeline.
 
-> **Module:** PROG6212 — Programming 2B
-> **Student:** A. Manqana (ST10470949)
-> **Part:** 2 of 3 — RESTful API Development
+Part 3 will be an MVC front-end that consumes this API.
 
-##  Table of Contents
+## System Description
 
-- [Overview](#-overview)
-- [Features](#-features)
-- [Tech Stack](#-tech-stack)
-- [Project Structure](#-project-structure)
-- [Database Schema](#-database-schema)
-- [Getting Started](#-getting-started)
-- [Roles & Access Control](#-roles--access-control)
-- [API Reference](#-api-reference)
-- [Testing](#-testing)
-- [CI/CD](#-cicd)
-- [Video Walkthrough](#-video-walkthrough)
-- [Roadmap](#-roadmap)
-- [Author](#-author)
+RaceDay is an event management platform for South African road running, walking and
+cycling events. There are two roles:
 
-##  Overview
+- **Organiser** — creates, edits and deletes events; manages categories per event; views
+  who has enrolled; captures results.
+- **Participant** — browses events and categories, enrols into a category, views their own
+  enrolments and results, and updates their own profile.
 
-RaceDay is a Portfolio of Evidence project split into three parts:
+The database schema matches the Part 1 ERD/SQL script exactly: `Users`, `Events`,
+`Categories`, `Enrolments`, `Results`, `RouteWeatherInfo`.
 
-| Part | Deliverable | Status |
-|---|---|---|
-| 1 | Planning — ERD, endpoint plan, SQL script | ✅ Complete |
-| **2** | **RESTful API — this repository** | ✅ Complete |
-| 3 | MVC front-end consuming this API | 🔜 Upcoming |
+## Project Structure
 
-There are two roles on the platform:
-
-- **Organiser** — creates, edits and deletes events; manages categories per event; views who has enrolled; captures results.
-- **Participant** — browses events and categories, enrols into a category, views their own enrolments and results, and updates their own profile.
-
-The database schema matches the Part 1 ERD/SQL script exactly.
-
-##  Features
-
--  Session-based authentication with hashed passwords (`PasswordHasher<User>`)
--  Role enforcement on every protected endpoint, plus per-resource ownership checks
--  Full EF Core Code-First data model matching the Part 1 database design
--  Swagger UI with XML-comment-driven endpoint descriptions
--  xUnit test suite running against EF Core InMemory (no SQL Server needed for CI)
--  GitHub Actions pipeline: restore → build → test on every push
-
-##  Tech Stack
-
-| Layer | Technology |
-|---|---|
-| Framework | ASP.NET Core 8 Web API (controller-based) |
-| ORM | Entity Framework Core 8, Code-First, SQL Server provider |
-| Auth | `Microsoft.AspNetCore.Session` (server-side session, no JWT) |
-| Password hashing | `Microsoft.AspNetCore.Identity.PasswordHasher<User>` |
-| API docs | Swagger / Swashbuckle |
-| Testing | xUnit + EF Core InMemory provider |
-| CI/CD | GitHub Actions |
-
-##  Project Structure
 ```
-RaceDay-API/
+RaceDay_Part2_A.MANQANA_ST10470949/
 ├── RaceDay.API/
 │   ├── Controllers/        AuthController, UsersController, EventsController,
 │   │                        CategoriesController, EnrolmentsController, ResultsController
 │   ├── Models/              User, Event, Category, Enrolment, Result, RouteWeatherInfo
 │   ├── DTOs/                Request/response shapes, grouped by feature
 │   ├── Data/                RaceDayContext (EF Core DbContext)
-│   ├── Services/            IPasswordHashService / PasswordHashService
+│   ├── Services/            IPasswordHashService / PasswordHashService - password hashing,
+│   │                        injected into AuthController rather than instantiated inline
 │   ├── Program.cs
 │   └── appsettings.json
 ├── RaceDay.Tests/           xUnit test project (EF Core InMemory, no SQL Server needed)
 ├── .github/workflows/       dotnet-ci.yml — build + test on every push
-├── Documentation/           CI green build screenshot
+├── Documentation/           CI green build screenshot goes here
 └── README.md
 ```
 
----
+## Technologies Used
 
-##  Database Schema
+- ASP.NET Core 8 Web API (controller-based, not minimal APIs)
+- Entity Framework Core 8, Code-First, SQL Server provider
+- Session-based authentication (`Microsoft.AspNetCore.Session`) — no JWT, the server
+  keeps track of who's logged in via a session cookie that stores `UserId` and `Role`
+- `PasswordHasher<User>` (from `Microsoft.AspNetCore.Identity`) for password hashing
+- Swagger / Swashbuckle for API documentation and manual testing
+- xUnit + EF Core InMemory provider for unit tests
+- GitHub Actions for CI/CD
 
-| Entity | Purpose |
-|---|---|
-| `Users` | Organisers and Participants, one table, discriminated by `Role` |
-| `Events` | Owned by an Organiser; date, location, description |
-| `Categories` | e.g. "10km Fun Run" under a specific Event; entry fee, capacity |
-| `Enrolments` | Links a Participant to a Category |
-| `Results` | Finish time / position, captured by the Organiser per Enrolment |
-| `RouteWeatherInfo` | Race-day weather and route info per Event |
+## How to Set Up and Run
 
-Key constraints enforced at the EF Core level: unique email per user, unique enrolment per participant/category pair, restrict-delete on foreign keys to avoid cascade cycles.
+1. **Install prerequisites**
+   - Visual Studio 2022 with the "ASP.NET and web development" workload
+   - SQL Server / SQL Server Express / LocalDB
+   - .NET 8 SDK
 
----
+2. **Clone the repository and open `RaceDay.sln`** in Visual Studio.
 
-##  Getting Started
-
-### Prerequisites
-
-- Visual Studio 2022 (ASP.NET and web development workload) or the .NET 8 SDK
-- SQL Server / SQL Server Express / LocalDB
-
-### Setup
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/YOUR-USERNAME/YOUR-REPO.git
-   cd YOUR-REPO
-   ```
-
-   2. **Open `RaceDay.sln`** in Visual Studio, or work from the terminal.
-
-3. **Check the connection string** in `RaceDay.API/appsettings.json` — defaults to LocalDB:
+3. **Check the connection string** in `RaceDay.API/appsettings.json`. It defaults to
+   LocalDB:
    ```
    Server=(localdb)\MSSQLLocalDB;Database=RaceDay;Trusted_Connection=True;...
    ```
+   Change it if you're pointing at a different SQL Server instance.
 
-4. **Create the database with EF Core migrations:**
-   ```bash
-   cd RaceDay.API
+4. **Create the database with EF Core migrations.** In the Package Manager Console
+   (with `RaceDay.API` set as the default project):
+   ```
+   Add-Migration InitialCreate
+   Update-Database
+   ```
+   or from the terminal, inside `RaceDay.API/`:
+   ```
    dotnet ef migrations add InitialCreate
    dotnet ef database update
    ```
+   This creates the same tables as the Part 1 SQL script (EF Core generates them from
+   the model classes in `Models/`, Code-First).
 
-5. **Run the API:**
-   ```bash
-   dotnet run
-   ```
-   Your browser should open straight to Swagger at `/swagger`.
+5. **Run the API** (F5, or `dotnet run` inside `RaceDay.API/`). Your browser should open
+   straight to Swagger at `/swagger`.
 
-6. **Register and log in through Swagger** — `POST /api/auth/register`, then `POST /api/auth/login`. Swagger keeps the session cookie between calls, so once you're logged in you can try the role-restricted endpoints straight away.
+6. **Register and log in through Swagger** — `POST /api/auth/register`, then
+   `POST /api/auth/login`. Swagger keeps the session cookie between calls automatically,
+   so once you're logged in you can try the role-restricted endpoints straight away.
 
----
-##  Roles & Access Control
+## Roles and Access
 
 | Area | Organiser | Participant |
 |---|---|---|
@@ -146,106 +103,40 @@ Key constraints enforced at the EF Core level: unique email per user, unique enr
 | Results | Capture for own events | View own only |
 | Weather/Route info | Add/update for own events | View |
 
-Every write endpoint checks the session first (`401` if nobody's logged in), then the role (`403` if it's the wrong role), and — for Events/Categories/Enrolments/Results — that the logged-in Organiser actually owns the parent event before allowing the change.
+Every write endpoint checks the session first (`401` if nobody's logged in), then the
+role (`403` if it's the wrong role), and — for Events/Categories/Enrolments/Results —
+that the logged-in Organiser actually owns the parent event before allowing the change.
 
-##  API Reference
+## Running the Tests
 
-Full interactive documentation is available via Swagger UI at `/swagger` once the API is running. Summary below:
-
-### Auth — `/api/auth`
-
-| Method | Route | Auth | Description |
-|---|---|---|---|
-| POST | `/register` | — | Register a new Organiser or Participant |
-| POST | `/login` | — | Log in and start a session |
-| POST | `/logout` | — | Clear the current session |
-
-### Users — `/api/users`
-
-| Method | Route | Auth | Description |
-|---|---|---|---|
-| GET | `/me` | Logged in | Get own profile |
-| PUT | `/me` | Logged in | Update own profile |
-
-### Events — `/api/events`
-
-| Method | Route | Auth | Description |
-|---|---|---|---|
-| GET | `/` | — | List all events (filter by location/date) |
-| GET | `/{id}` | — | Get a single event with categories |
-| POST | `/` | Organiser | Create an event |
-| PUT | `/{id}` | Organiser (owner) | Update an event |
-| DELETE | `/{id}` | Organiser (owner) | Delete an event |
-| GET | `/{id}/categories` | — | List categories for an event |
-| POST | `/{id}/categories` | Organiser (owner) | Add a category to an event |
-| GET | `/{id}/enrolments` | Organiser (owner) | List enrolments for an event |
-| GET | `/{id}/results` | Organiser (owner) | List results for an event |
-| GET | `/{id}/weather` | — | Get weather/route info |
-| POST | `/{id}/weather` | Organiser (owner) | Add/update weather/route info |
-
-### Categories — `/api/categories`
-
-| Method | Route | Auth | Description |
-|---|---|---|---|
-| PUT | `/{id}` | Organiser (owner) | Update a category |
-| DELETE | `/{id}` | Organiser (owner) | Delete a category |
-
-### Enrolments — `/api/enrolments`
-
-| Method | Route | Auth | Description |
-|---|---|---|---|
-| POST | `/` | Participant | Enrol into a category |
-| GET | `/me` | Participant | List own enrolments |
-| DELETE | `/{id}` | Participant (own) | Cancel own enrolment |
-
-### Results — `/api/results`
-
-| Method | Route | Auth | Description |
-|---|---|---|---|
-| POST | `/` | Organiser (owner) | Capture a result for an enrolment |
-| GET | `/me` | Participant | View own results |
-
----
-
-##  Testing
-
-Run the full suite:
-
-```bash
+In Visual Studio: **Test → Test Explorer → Run All Tests**, or from the terminal:
+```
 dotnet test
 ```
 
-Tests run against the EF Core InMemory provider, so CI doesn't need an actual SQL Server instance.
+Tests cover:
+- **Authentication** — successful registration, duplicate email rejected, successful
+  login starts a session, wrong password is rejected.
+- **Events** — Organiser can create an event, Participant is rejected (403), an
+  anonymous request is rejected (401), the public events list works without logging in.
+- **Enrolments** — Participant can enrol and the record links the right Participant +
+  Category, Organiser is rejected, enrolling twice in the same category is rejected.
 
-**Coverage includes:**
-- **Authentication** — successful registration, duplicate email rejected, successful login starts a session, wrong password rejected
-- **Events** — Organiser can create an event, Participant is rejected (403), anonymous request rejected (401), public events list works without logging in
-- **Enrolments** — Participant can enrol and the record links correctly, Organiser is rejected, duplicate enrolment in the same category is rejected
+They run against the EF Core InMemory provider, so CI doesn't need an actual SQL Server
+instance to run them.
 
----
+## CI/CD
 
-##  CI/CD
+`.github/workflows/dotnet-ci.yml` runs on every push: restores dependencies, builds in
+Release mode, then runs the full test suite.
 
-`.github/workflows/dotnet-ci.yml` runs on every push and pull request to `main`: restores dependencies, builds in Release mode, then runs the full test suite.
+**Green build screenshot:** `Documentation/ci-green-build.png` — insert after your first
+successful push.
 
-**Green build:**
+## Video Walkthrough
 
-![CI green build](Documentation/ci-green-build.png)
+**YouTube (unlisted):** _add your link here_
 
----
-
-##  Video Walkthrough
-
- **YouTube (unlisted):** _[add your link here]_
-
-The video covers: project structure, the database, running the API, Swagger, register/login, role restrictions, Events/Categories/Enrolments/Results, unit tests, and the GitHub Actions green build.
-
----
-
-##  Roadmap
-
-- [x] Part 1 — Planning (ERD, endpoint plan, SQL script)
-- [x] Part 2 — RESTful API (this repository)
-- [ ] Part 3 — MVC front-end consuming this API
-
----
+The video covers: project structure, the database, running the API, Swagger, register/
+login, role restrictions, Events/Categories/Enrolments/Results, unit tests, and the
+GitHub Actions green build.
