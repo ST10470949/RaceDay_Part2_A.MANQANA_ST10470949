@@ -112,4 +112,26 @@ Key constraints enforced at the EF Core level: unique email per user, unique enr
    cd YOUR-REPO
    ```
 
-   
+   2. **Open `RaceDay.sln`** in Visual Studio, or work from the terminal.
+
+3. **Check the connection string** in `RaceDay.API/appsettings.json` — defaults to LocalDB:
+   ```
+   Server=(localdb)\MSSQLLocalDB;Database=RaceDay;Trusted_Connection=True;...
+   ```
+
+4. **Create the database with EF Core migrations:**
+   ```bash
+   cd RaceDay.API
+   dotnet ef migrations add InitialCreate
+   dotnet ef database update
+   ```
+
+5. **Run the API:**
+   ```bash
+   dotnet run
+   ```
+   Your browser should open straight to Swagger at `/swagger`.
+
+6. **Register and log in through Swagger** — `POST /api/auth/register`, then `POST /api/auth/login`. Swagger keeps the session cookie between calls, so once you're logged in you can try the role-restricted endpoints straight away.
+
+---
