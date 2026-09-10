@@ -206,3 +206,20 @@ Full interactive documentation is available via Swagger UI at `/swagger` once th
 | GET | `/me` | Participant | View own results |
 
 ---
+
+##  Testing
+
+Run the full suite:
+
+```bash
+dotnet test
+```
+
+Tests run against the EF Core InMemory provider, so CI doesn't need an actual SQL Server instance.
+
+**Coverage includes:**
+- **Authentication** — successful registration, duplicate email rejected, successful login starts a session, wrong password rejected
+- **Events** — Organiser can create an event, Participant is rejected (403), anonymous request rejected (401), public events list works without logging in
+- **Enrolments** — Participant can enrol and the record links correctly, Organiser is rejected, duplicate enrolment in the same category is rejected
+
+---
