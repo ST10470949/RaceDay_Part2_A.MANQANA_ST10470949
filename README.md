@@ -147,3 +147,7 @@ Key constraints enforced at the EF Core level: unique email per user, unique enr
 | Weather/Route info | Add/update for own events | View |
 
 Every write endpoint checks the session first (`401` if nobody's logged in), then the role (`403` if it's the wrong role), and — for Events/Categories/Enrolments/Results — that the logged-in Organiser actually owns the parent event before allowing the change.
+
+##  API Reference
+
+Full interactive documentation is available via Swagger UI at `/swagger` once the API is running. Summary below:
