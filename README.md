@@ -182,3 +182,10 @@ Full interactive documentation is available via Swagger UI at `/swagger` once th
 | GET | `/{id}/results` | Organiser (owner) | List results for an event |
 | GET | `/{id}/weather` | — | Get weather/route info |
 | POST | `/{id}/weather` | Organiser (owner) | Add/update weather/route info |
+
+### Categories — `/api/categories`
+
+| Method | Route | Auth | Description |
+|---|---|---|---|
+| PUT | `/{id}` | Organiser (owner) | Update a category |
+| DELETE | `/{id}` | Organiser (owner) | Delete a category |
