@@ -189,3 +189,11 @@ Full interactive documentation is available via Swagger UI at `/swagger` once th
 |---|---|---|---|
 | PUT | `/{id}` | Organiser (owner) | Update a category |
 | DELETE | `/{id}` | Organiser (owner) | Delete a category |
+
+### Enrolments — `/api/enrolments`
+
+| Method | Route | Auth | Description |
+|---|---|---|---|
+| POST | `/` | Participant | Enrol into a category |
+| GET | `/me` | Participant | List own enrolments |
+| DELETE | `/{id}` | Participant (own) | Cancel own enrolment |
