@@ -151,3 +151,11 @@ Every write endpoint checks the session first (`401` if nobody's logged in), the
 ##  API Reference
 
 Full interactive documentation is available via Swagger UI at `/swagger` once the API is running. Summary below:
+
+### Auth — `/api/auth`
+
+| Method | Route | Auth | Description |
+|---|---|---|---|
+| POST | `/register` | — | Register a new Organiser or Participant |
+| POST | `/login` | — | Log in and start a session |
+| POST | `/logout` | — | Clear the current session |
