@@ -40,3 +40,12 @@ There are two roles on the platform:
 - **Participant** — browses events and categories, enrols into a category, views their own enrolments and results, and updates their own profile.
 
 The database schema matches the Part 1 ERD/SQL script exactly.
+
+##  Features
+
+-  Session-based authentication with hashed passwords (`PasswordHasher<User>`)
+-  Role enforcement on every protected endpoint, plus per-resource ownership checks
+-  Full EF Core Code-First data model matching the Part 1 database design
+-  Swagger UI with XML-comment-driven endpoint descriptions
+-  xUnit test suite running against EF Core InMemory (no SQL Server needed for CI)
+-  GitHub Actions pipeline: restore → build → test on every push
