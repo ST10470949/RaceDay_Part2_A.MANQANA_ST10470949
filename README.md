@@ -197,3 +197,12 @@ Full interactive documentation is available via Swagger UI at `/swagger` once th
 | POST | `/` | Participant | Enrol into a category |
 | GET | `/me` | Participant | List own enrolments |
 | DELETE | `/{id}` | Participant (own) | Cancel own enrolment |
+
+### Results — `/api/results`
+
+| Method | Route | Auth | Description |
+|---|---|---|---|
+| POST | `/` | Organiser (owner) | Capture a result for an enrolment |
+| GET | `/me` | Participant | View own results |
+
+---
