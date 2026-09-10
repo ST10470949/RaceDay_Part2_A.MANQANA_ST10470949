@@ -63,7 +63,7 @@ The database schema matches the Part 1 ERD/SQL script exactly.
 | CI/CD | GitHub Actions |
 
 ##  Project Structure
-
+```
 RaceDay-API/
 ├── RaceDay.API/
 │   ├── Controllers/        AuthController, UsersController, EventsController,
@@ -78,4 +78,4 @@ RaceDay-API/
 ├── .github/workflows/       dotnet-ci.yml — build + test on every push
 ├── Documentation/           CI green build screenshot
 └── README.md
-
+```
