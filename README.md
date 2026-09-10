@@ -159,3 +159,10 @@ Full interactive documentation is available via Swagger UI at `/swagger` once th
 | POST | `/register` | — | Register a new Organiser or Participant |
 | POST | `/login` | — | Log in and start a session |
 | POST | `/logout` | — | Clear the current session |
+
+### Users — `/api/users`
+
+| Method | Route | Auth | Description |
+|---|---|---|---|
+| GET | `/me` | Logged in | Get own profile |
+| PUT | `/me` | Logged in | Update own profile |
